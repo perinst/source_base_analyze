@@ -39,7 +39,8 @@ def call_llm(prompt: str, use_cache: bool = True) -> str:
                 with open(cache_file, "r") as f:
                     cache = json.load(f)
             except:
-                logger.warning(f"Failed to load cache, starting with empty cache")
+                logger.warning(
+                    f"Failed to load cache, starting with empty cache")
 
         # Return from cache if exists
         if prompt in cache:
@@ -56,11 +57,11 @@ def call_llm(prompt: str, use_cache: bool = True) -> str:
 
     # You can comment the previous line and use the AI Studio key instead:
     client = genai.Client(
-        api_key=os.getenv("GEMINI_API_KEY", ""),
+        api_key="AIzaSyD9Gl54LCI8ZFJlPtv855p0bldtJRvZtTE",
     )
     model = os.getenv("GEMINI_MODEL", "gemini-2.5-pro-exp-03-25")
     # model = os.getenv("GEMINI_MODEL", "gemini-2.5-flash-preview-04-17")
-    
+
     response = client.models.generate_content(model=model, contents=[prompt])
     response_text = response.text
 
@@ -145,7 +146,7 @@ def call_llm(prompt: str, use_cache: bool = True) -> str:
 #     # OpenRouter API configuration
 #     api_key = os.getenv("OPENROUTER_API_KEY", "")
 #     model = os.getenv("OPENROUTER_MODEL", "google/gemini-2.0-flash-exp:free")
-    
+
 #     headers = {
 #         "Authorization": f"Bearer {api_key}",
 #     }
@@ -169,9 +170,9 @@ def call_llm(prompt: str, use_cache: bool = True) -> str:
 #         response_text = response.json()["choices"][0]["message"]["content"]
 #     except Exception as e:
 #         error_msg = f"Failed to parse OpenRouter response: {e}; Response: {response.text}"
-#         logger.error(error_msg)        
+#         logger.error(error_msg)
 #         raise Exception(error_msg)
-    
+
 
 #     # Log the response
 #     logger.info(f"RESPONSE: {response_text}")
